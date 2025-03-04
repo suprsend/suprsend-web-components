@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SuprSend Example</title>
+  </head>
+  <body>
+    <div id="suprsend-inbox"></div>
+    <!-- <div id="suprsend-notification-feed"></div> -->
+    <script src="dist/bundle.es.js"></script>
+    <script>
+      const config = {
+        distinctId: "your_distinct_id",
+        publicApiKey: "your_public_api_key",
+      };
+
+      SuprSend.initSuprSend(config);
+    </script>
+  </body>
+</html>

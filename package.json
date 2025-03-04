@@ -1,0 +1,44 @@
+{
+  "name": "suprsend-web-components",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/bundle.umd.js",
+  "module": "dist/bundle.es.js",
+  "types": "dist/types/index.d.ts",
+  "typings": "dist/types/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "notifications",
+    "suprsend",
+    "inbox",
+    "preferences"
+  ],
+  "dependencies": {
+    "@suprsend/react": "^0.0.6",
+    "preact": "^10.25.3",
+    "react-hot-toast": "^2.5.2"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.9.3",
+    "@types/babel__core": "^7.20.5",
+    "@types/babel__generator": "^7.6.8",
+    "@types/babel__template": "^7.4.4",
+    "@types/babel__traverse": "^7.20.6",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5",
+    "vite-plugin-dts": "^4.5.0"
+  }
+}
