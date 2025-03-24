@@ -34,7 +34,7 @@ This integration is used in Vanillajs, Django, Laravel, ruby etc where npm is no
 </script>
 ```
 
-## Integrate as NPM Package
+### Integrate as NPM Package
 
 This integration is used in framework based applications like angular, vuejs etc.
 
@@ -52,15 +52,15 @@ import { initSuprSend, clearSuprSend } from "@suprsend/web-components";
 <div id="suprsend-notification-feed"></div>
 
 const suprsendConfig = {
-    distinctId: "YOUR_DISTINCT_ID",
-    publicApiKey: "YOUR_PUBLIC_API_KEY",
-    userAuthenticationHandler: ({ response }) => {
-      console.log("User Authentication Response", response);
-    },
-  };
+  distinctId: "YOUR_DISTINCT_ID",
+  publicApiKey: "YOUR_PUBLIC_API_KEY",
+  userAuthenticationHandler: ({ response }) => {
+    console.log("User Authentication Response", response);
+  },
+};
 
-  initSuprSend(suprsendConfig) // for creating instance and rendering component
-  console.log("Instance created but user authentication pending", window.suprsend)
+initSuprSend(suprsendConfig) // for creating instance and rendering component
+console.log("Instance created but user authentication pending", window.suprsend)
 ```
 
 ## Removing Instance
@@ -92,10 +92,9 @@ clearSuprSendFeed(); // unmount only feed component
 ## Updating component configuration dynamically
 
 ```javascript
-const config = {...}; // diff config objects
-window.suprsend.updateInboxConfig(config);
-window.suprsend.updateFeedConfig(config);
-window.suprsend.updateToastConfig(config);
+window.suprsend.updateInboxConfig(config: IInbox);
+window.suprsend.updateFeedConfig(config: IFeed);
+window.suprsend.updateToastConfig(config: IToastNotificationProps);
 ```
 
 ## Refreshing expired JWT user token
@@ -106,7 +105,7 @@ window.suprsend.refreshUserToken(token); // pass new jwt usertoken string
 
 ## Accessing other instance methods
 
-SDK internally calls `new SuprSend()` when you call `initSuprSend()` then you can access instance using `window.suprsend.client`. This instance has methods like [preferences](https://docs.suprsend.com/docs/js-preferences), [webpush](https://docs.suprsend.com/docs/js-webpush), [event and user update](https://docs.suprsend.com/docs/js-events-and-user-methods) methods.
+SDK internally calls `new SuprSend()` when you call `initSuprSend()` then you can access instance using `window.suprsend.client`. This instance has methods like [preferences](https://docs.suprsend.com/docs/js-preferences), [webpush](https://docs.suprsend.com/docs/js-webpush), [event and user updates](https://docs.suprsend.com/docs/js-events-and-user-methods).
 
 ```javascript
 // example methods
@@ -163,7 +162,7 @@ interface IInbox extends {
   secondaryActionClickHandler?: (notification: IRemoteNotification) => void;
 }
 
-// notifications feed config options
+// feed config options
 interface IFeed{
   tenantId?: string;
   pageSize?: number;
