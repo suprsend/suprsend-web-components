@@ -8,14 +8,23 @@
   <body>
     <div id="suprsend-inbox"></div>
     <!-- <div id="suprsend-notification-feed"></div> -->
-    <script src="dist/bundle.es.js"></script>
+
     <script>
-      const config = {
-        distinctId: "your_distinct_id",
-        publicApiKey: "your_public_api_key",
+      window.suprsendConfig = {
+        distinctId: "YOUR_DISTINCT_ID",
+        publicApiKey: "YOUR_PUBLIC_API_KEY",
+        userAuthenticationHandler: ({ response }) => {
+          console.log("user authentication response", response);
+        },
       };
 
-      SuprSend.initSuprSend(config);
+      let scriptElem = document.createElement("script");
+      scriptElem.async = 1;
+      scriptElem.src = "./dist/bundle.umd.js";
+      scriptElem.onload = () => {
+        console.log("SuprSend SDK loaded", window.suprsend);
+      };
+      document.body.appendChild(scriptElem);
     </script>
   </body>
 </html>

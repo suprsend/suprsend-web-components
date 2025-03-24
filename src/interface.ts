@@ -1,13 +1,14 @@
-import {
+import type {
   SuprSendProviderProps,
   InboxPopoverProps,
   NotificationFeedProps,
   ToastNotificationProps,
   IFeedOptions,
+  SuprSend,
 } from "@suprsend/react";
 import { ToastPosition } from "react-hot-toast";
 
-interface IInbox
+export interface IInbox
   extends IFeedOptions,
     Omit<
       InboxPopoverProps,
@@ -24,7 +25,7 @@ interface IInbox
   headerIconClickHandler?: () => void;
 }
 
-interface INotificationFeed
+export interface IFeed
   extends IFeedOptions,
     Omit<
       NotificationFeedProps,
@@ -37,6 +38,7 @@ interface INotificationFeed
   hideToast?: boolean;
   headerIconUrl?: string;
   headerIconClickHandler?: () => void;
+  hideFeed?: boolean;
 }
 
 export interface IToastNotificationProps
@@ -47,15 +49,36 @@ export interface IToastNotificationProps
 
 export interface ISuprSendComponents {
   inbox?: IInbox;
-  notificationFeed?: INotificationFeed;
+  feed?: IFeed;
   toast?: IToastNotificationProps;
 }
 
 export interface IOptions
   extends Omit<SuprSendProviderProps, "children">,
-    ISuprSendComponents {}
+    ISuprSendComponents {
+  initOnLoad?: boolean;
+}
 
 export interface ICustomHeaderRightComponent {
   markAllRead: () => void;
   config?: IInbox;
+}
+
+export interface IGlobalSuprSend {
+  client?: SuprSend;
+  initSuprSend: (config: IOptions) => void;
+  clearSuprSend: () => void;
+  clearSuprSendInbox: () => void;
+  clearSuprSendFeed: () => void;
+  updateInboxConfig?: (config: IInbox) => void;
+  updateFeedConfig?: (config: IFeed) => void;
+  updateToastConfig?: (config: IToastNotificationProps) => void;
+  refreshUserToken?: (userToken: string) => void;
+}
+
+declare global {
+  interface Window {
+    suprsend: IGlobalSuprSend;
+    suprsendConfig?: IOptions;
+  }
 }

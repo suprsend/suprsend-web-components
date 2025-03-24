@@ -1,8 +1,10 @@
 {
-  "name": "suprsend-web-components",
-  "private": true,
+  "name": "@suprsend/web-components",
   "version": "0.0.0",
+  "description": "This SuprSend library enables the use of features like inbox and preference drop-in components in non-React frameworks such as Vanilla JavaScript, Angular, and Vue",
+  "author": "SuprSend Developers",
   "type": "module",
+  "private": false,
   "main": "dist/bundle.umd.js",
   "module": "dist/bundle.es.js",
   "types": "dist/types/index.d.ts",
@@ -24,7 +26,10 @@
     "notifications",
     "suprsend",
     "inbox",
-    "preferences"
+    "preferences",
+    "vanillajs",
+    "angular",
+    "vue"
   ],
   "dependencies": {
     "@suprsend/react": "^0.0.6",
