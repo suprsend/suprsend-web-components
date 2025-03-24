@@ -118,7 +118,7 @@ window.suprsend.client.user.preferences.getPreferences(args?: {tenantId?: string
 
 ## Config Options
 
-To customise SuprSend components you could pass config object. Below are available options
+To customise SuprSend components you can pass config object.
 
 ```typescript
 interface ConfigProps {
