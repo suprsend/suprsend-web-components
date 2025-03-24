@@ -20,7 +20,8 @@
 
       let scriptElem = document.createElement("script");
       scriptElem.async = 1;
-      scriptElem.src = "./dist/bundle.umd.js";
+      scriptElem.src =
+        "https://web-components.suprsend.com/v0.0.1/bundle.umd.js";
       scriptElem.onload = () => {
         console.log("SuprSend SDK loaded", window.suprsend);
       };
