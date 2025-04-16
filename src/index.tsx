@@ -65,7 +65,7 @@ function CustomHeaderRightComponent({
 }
 
 function ToastNotification(options: IToastNotificationProps) {
-  const { duration, position, hideAvatar, ...otherProps } = options || {};
+  const { duration, position, ...otherProps } = options || {};
   const feedClient = useFeedClient();
 
   useEffect(() => {
