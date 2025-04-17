@@ -5,6 +5,7 @@ import type {
   ToastNotificationProps,
   IFeedOptions,
   SuprSend,
+  SuprSendI18nProviderProps,
 } from "@suprsend/react";
 import { ToastPosition } from "react-hot-toast";
 
@@ -55,6 +56,7 @@ export interface ISuprSendComponents {
 
 export interface IOptions
   extends Omit<SuprSendProviderProps, "children">,
+    Omit<SuprSendI18nProviderProps, "children">,
     ISuprSendComponents {
   initOnLoad?: boolean;
 }

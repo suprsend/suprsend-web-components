@@ -26,7 +26,7 @@ This integration is used in Vanillajs, Django, Laravel, ruby etc where npm is no
 
   let scriptElem = document.createElement("script");
   scriptElem.async = 1;
-  scriptElem.src = "https://web-components.suprsend.com/v0.0.1/bundle.umd.js";
+  scriptElem.src = "https://web-components.suprsend.com/v0.1.0/bundle.umd.js";
   scriptElem.onload = () => {
     console.log("SuprSend SDK loaded", window.suprsend);
   };
@@ -134,6 +134,8 @@ interface ConfigProps {
   vapidKey?: string; // for webpush notifications
   swFileName?: string; // for webpush notifications
   userAuthenticationHandler?: ({ response: ApiResponse }) => void; // callback will be called after internally authenticating user.
+  locale: "en / fr / es / de / ar"; // pass locale to add internal translations
+  translations: ITranslations; // pass this to override existing strings or adding new language that we dont support internally.
   inbox?: IInbox;
   feed?: IFeed;
   toast?: IToastNotificationProps;

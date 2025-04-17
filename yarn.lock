@@ -745,22 +745,22 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.2.tgz#821f8442f4175d8f0467b9daf26e3a18e2d02af2"
   integrity sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==
 
-"@suprsend/react-core@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@suprsend/react-core/-/react-core-0.0.1.tgz#5b8b8e3b352de47f300f7a4c03de30340f2be846"
-  integrity sha512-L7lH8zOhBN0zJbjXcwzzxU5ERayUgLM+Z+e0V16JYQcZwA8rSuoggk4fWjnY71QMTCHoNQTMB76u9+2uoziiHQ==
+"@suprsend/react-core@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@suprsend/react-core/-/react-core-0.1.0.tgz#f32cf359d4c4422e2eaed95b3513f9c6391aed1c"
+  integrity sha512-aAqnmayYr2X4CrHeNJsUhoU3qagZdHTEfmcZEpjPpz9vj6WGOcgSv20rpJCDfuyvcQEswP7E7GawmlL9/9H1+A==
   dependencies:
     "@suprsend/web-sdk" "^3.0.1"
 
-"@suprsend/react@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@suprsend/react/-/react-0.0.6.tgz#da1e510d4d9cd283651225102e688ca79e8a6d43"
-  integrity sha512-KDLkwdGRyCDhQwWQAhd4lAEKCDZMFeyUeSlLEECy6yW6NlqFbOIdCtlR2ZNNko40pGBx0eCCIUG+UL2s2Iw9sg==
+"@suprsend/react@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@suprsend/react/-/react-0.1.0.tgz#8f0f04458cb36c930d1a0c58f6a5b03b9fdb9f56"
+  integrity sha512-EDrps0VmhHgT/JYSaqilXqXrbf7fUu0qUoBh/BKBIQMLMjzU2z5HVlYfM/l7jf069w1wQf7ZcU0/VdPFvq3LSA==
   dependencies:
     "@emotion/react" "^11.13.5"
     "@emotion/styled" "^11.13.5"
     "@popperjs/core" "^2.11.8"
-    "@suprsend/react-core" "^0.0.1"
+    "@suprsend/react-core" "^0.1.0"
     react-infinite-scroll-component "^6.1.0"
     react-markdown "6.0.3"
     react-popper "^2.3.0"
