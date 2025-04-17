@@ -8,6 +8,8 @@ import {
   SuprSendFeedProvider,
   useFeedClient,
   ToastNotificationCard,
+  SuprSendI18nProvider,
+  useTranslations,
 } from "@suprsend/react";
 import toast, { Toaster } from "react-hot-toast";
 import {
@@ -23,6 +25,8 @@ function CustomHeaderRightComponent({
   markAllRead,
   config,
 }: ICustomHeaderRightComponent) {
+  const { t } = useTranslations();
+
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
       <p
@@ -41,7 +45,7 @@ function CustomHeaderRightComponent({
           markAllRead();
         }}
       >
-        Mark all as read
+        {t("markAllAsRead")}
       </p>
       {config?.headerIconUrl && (
         <img
@@ -120,6 +124,8 @@ function SuprSendRoot({
   swFileName,
   refreshUserToken,
   userAuthenticationHandler,
+  locale,
+  translations,
   inbox,
   feed,
   toast,
@@ -143,7 +149,9 @@ function SuprSendRoot({
       swFileName={swFileName}
       userAuthenticationHandler={userAuthenticationHandler}
     >
-      <SuprSendComponents inbox={inbox} feed={feed} toast={toast} />
+      <SuprSendI18nProvider locale={locale} translations={translations}>
+        <SuprSendComponents inbox={inbox} feed={feed} toast={toast} />
+      </SuprSendI18nProvider>
     </SuprSendProvider>
   );
 }
