@@ -19,6 +19,7 @@ import {
   ICustomHeaderRightComponent,
   IInbox,
   IFeed,
+  IUpdateSuprSendConfigOptions,
 } from "./interface";
 
 function CustomHeaderRightComponent({
@@ -115,41 +116,27 @@ function ToastNotification(options: IToastNotificationProps) {
   );
 }
 
-function SuprSendRoot({
-  publicApiKey,
-  distinctId,
-  userToken,
-  host,
-  vapidKey,
-  swFileName,
-  refreshUserToken,
-  userAuthenticationHandler,
-  locale,
-  translations,
-  inbox,
-  feed,
-  toast,
-}: IOptions) {
-  const [userTokenValue, setUserToken] = useState(userToken);
+function SuprSendRoot(config: IOptions) {
+  const { inbox, feed, toast, ...otherConfig } = config;
+  const [suprsendConfig, setSuprSendConfig] = useState(otherConfig);
 
   useEffect(() => {
     window.suprsend.refreshUserToken = (userToken: string) => {
-      setUserToken(userToken);
+      setSuprSendConfig((prevConfig) => ({ ...prevConfig, userToken }));
+    };
+    window.suprsend.updateSuprSendConfig = (
+      config: IUpdateSuprSendConfigOptions
+    ) => {
+      setSuprSendConfig((prevConfig) => ({ ...prevConfig, ...(config || {}) }));
     };
   }, []);
 
   return (
-    <SuprSendProvider
-      publicApiKey={publicApiKey}
-      distinctId={distinctId}
-      userToken={userTokenValue}
-      host={host}
-      refreshUserToken={refreshUserToken}
-      vapidKey={vapidKey}
-      swFileName={swFileName}
-      userAuthenticationHandler={userAuthenticationHandler}
-    >
-      <SuprSendI18nProvider locale={locale} translations={translations}>
+    <SuprSendProvider {...suprsendConfig}>
+      <SuprSendI18nProvider
+        locale={suprsendConfig?.locale}
+        translations={suprsendConfig?.translations}
+      >
         <SuprSendComponents inbox={inbox} feed={feed} toast={toast} />
       </SuprSendI18nProvider>
     </SuprSendProvider>

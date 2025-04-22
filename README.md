@@ -89,18 +89,13 @@ clearSuprSendInbox(); // unmount only inbox component
 clearSuprSendFeed(); // unmount only feed component
 ```
 
-## Updating component configuration dynamically
+## Updating configuration dynamically
 
 ```javascript
+window.suprsend.updateSuprSendConfig(config: IUpdateSuprSendConfigOptions); // refresh userToken, change locale, translations dymanically
 window.suprsend.updateInboxConfig(config: IInbox);
 window.suprsend.updateFeedConfig(config: IFeed);
 window.suprsend.updateToastConfig(config: IToastNotificationProps);
-```
-
-## Refreshing expired JWT user token
-
-```javascript
-window.suprsend.refreshUserToken(token); // pass new jwt usertoken string
 ```
 
 ## Accessing other instance methods
