@@ -6,6 +6,7 @@ import type {
   IFeedOptions,
   SuprSend,
   SuprSendI18nProviderProps,
+  ITranslations,
 } from "@suprsend/react";
 import { ToastPosition } from "react-hot-toast";
 
@@ -61,6 +62,12 @@ export interface IOptions
   initOnLoad?: boolean;
 }
 
+export interface IUpdateSuprSendConfigOptions {
+  locale?: string;
+  translations?: ITranslations;
+  userToken?: string;
+}
+
 export interface ICustomHeaderRightComponent {
   markAllRead: () => void;
   config?: IInbox;
@@ -76,6 +83,7 @@ export interface IGlobalSuprSend {
   updateFeedConfig?: (config: IFeed) => void;
   updateToastConfig?: (config: IToastNotificationProps) => void;
   refreshUserToken?: (userToken: string) => void;
+  updateSuprSendConfig?: (config: IUpdateSuprSendConfigOptions) => void;
 }
 
 declare global {

@@ -1,6 +1,6 @@
 {
   "name": "@suprsend/web-components",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "This SuprSend library enables the use of features like inbox and preference drop-in components in non-React frameworks such as Vanilla JavaScript, Angular, and Vue",
   "author": "SuprSend Developers",
   "type": "module",

@@ -13,7 +13,7 @@ This integration is used in Vanillajs, Django, Laravel, ruby etc where npm is no
 <div id="suprsend-inbox"></div>
 
 <!-- for feed without bell as a fullscreen notification etc -->
-<div id="suprsend-notification-feed"></div>
+<div id="suprsend-feed"></div>
 
 <script>
   window.suprsendConfig = {
@@ -26,7 +26,7 @@ This integration is used in Vanillajs, Django, Laravel, ruby etc where npm is no
 
   let scriptElem = document.createElement("script");
   scriptElem.async = 1;
-  scriptElem.src = "https://web-components.suprsend.com/v0.1.1/bundle.umd.js";
+  scriptElem.src = "https://web-components.suprsend.com/v0.2.0/bundle.umd.js";
   scriptElem.onload = () => {
     console.log("SuprSend SDK loaded", window.suprsend);
   };
@@ -49,7 +49,7 @@ import { initSuprSend, clearSuprSend } from "@suprsend/web-components";
 <div id="suprsend-inbox"></div>
 
 // for feed without bell as a fullscreen notification etc
-<div id="suprsend-notification-feed"></div>
+<div id="suprsend-feed"></div>
 
 const suprsendConfig = {
   distinctId: "YOUR_DISTINCT_ID",
@@ -61,6 +61,18 @@ const suprsendConfig = {
 
 initSuprSend(suprsendConfig) // for creating instance and rendering component
 console.log("Instance created but user authentication pending", window.suprsend)
+```
+
+**NOTE:** If you are using `suprsend-feed`, specify height for the container for infinite scroll to work properly.
+
+```javascript
+const suprsendConfig = {
+  distinctId: "YOUR_DISTINCT_ID",
+  publicApiKey: "YOUR_PUBLIC_API_KEY",
+  feed: {
+    theme: { notificationsContainer: { container: { height: "100vh" } } }, // add this to specify height
+  },
+};
 ```
 
 ## Removing Instance
@@ -89,18 +101,13 @@ clearSuprSendInbox(); // unmount only inbox component
 clearSuprSendFeed(); // unmount only feed component
 ```
 
-## Updating component configuration dynamically
+## Updating configuration dynamically
 
 ```javascript
+window.suprsend.updateSuprSendConfig(config: IUpdateSuprSendConfigOptions); // refresh userToken, change locale, translations dymanically
 window.suprsend.updateInboxConfig(config: IInbox);
 window.suprsend.updateFeedConfig(config: IFeed);
 window.suprsend.updateToastConfig(config: IToastNotificationProps);
-```
-
-## Refreshing expired JWT user token
-
-```javascript
-window.suprsend.refreshUserToken(token); // pass new jwt usertoken string
 ```
 
 ## Accessing other instance methods
