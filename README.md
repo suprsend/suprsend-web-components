@@ -120,7 +120,7 @@ window.suprsend.client.isIdentified();
 window.suprsend.client.user.addEmail(email: string);
 window.suprsend.client.track(event: string, properties?: Dictionary)
 window.suprsend.client.webpush.registerPush();
-window.suprsend.client.user.preferences.getPreferences(args?: {tenantId?: string});
+window.suprsend.client.user.preferences.getPreferences();
 ```
 
 ## Config Options
