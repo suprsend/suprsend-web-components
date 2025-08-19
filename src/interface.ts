@@ -53,6 +53,7 @@ export interface ISuprSendComponents {
   inbox?: IInbox;
   feed?: IFeed;
   toast?: IToastNotificationProps;
+  shadowRoot?: ShadowRoot;
 }
 
 export interface IOptions
@@ -60,6 +61,7 @@ export interface IOptions
     Omit<SuprSendI18nProviderProps, "children">,
     ISuprSendComponents {
   initOnLoad?: boolean;
+  shadowRoot?: ShadowRoot;
 }
 
 export interface IUpdateSuprSendConfigOptions {
@@ -76,7 +78,7 @@ export interface ICustomHeaderRightComponent {
 export interface IGlobalSuprSend {
   client?: SuprSend;
   initSuprSend: (config: IOptions) => void;
-  clearSuprSend: () => void;
+  clearSuprSend: (config?: IClearInstance) => void;
   clearSuprSendInbox: () => void;
   clearSuprSendFeed: () => void;
   updateInboxConfig?: (config: IInbox) => void;
@@ -84,6 +86,12 @@ export interface IGlobalSuprSend {
   updateToastConfig?: (config: IToastNotificationProps) => void;
   refreshUserToken?: (userToken: string) => void;
   updateSuprSendConfig?: (config: IUpdateSuprSendConfigOptions) => void;
+  _clearSuprSendInboxInternally?: () => void;
+  _clearSuprSendFeedInternally?: () => void;
+}
+
+export interface IClearInstance {
+  shadowRoot?: ShadowRoot;
 }
 
 declare global {

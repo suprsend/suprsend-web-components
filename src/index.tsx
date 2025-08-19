@@ -12,6 +12,8 @@ import {
   useTranslations,
 } from "@suprsend/react";
 import toast, { Toaster } from "react-hot-toast";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
 import {
   IOptions,
   ISuprSendComponents,
@@ -20,6 +22,7 @@ import {
   IInbox,
   IFeed,
   IUpdateSuprSendConfigOptions,
+  IClearInstance,
 } from "./interface";
 
 function CustomHeaderRightComponent({
@@ -117,7 +120,7 @@ function ToastNotification(options: IToastNotificationProps) {
 }
 
 function SuprSendRoot(config: IOptions) {
-  const { inbox, feed, toast, ...otherConfig } = config;
+  const { inbox, feed, toast, shadowRoot, ...otherConfig } = config;
   const [suprsendConfig, setSuprSendConfig] = useState(otherConfig);
 
   useEffect(() => {
@@ -137,20 +140,40 @@ function SuprSendRoot(config: IOptions) {
         locale={suprsendConfig?.locale}
         translations={suprsendConfig?.translations}
       >
-        <SuprSendComponents inbox={inbox} feed={feed} toast={toast} />
+        <SuprSendComponents
+          inbox={inbox}
+          feed={feed}
+          toast={toast}
+          shadowRoot={shadowRoot}
+        />
       </SuprSendI18nProvider>
     </SuprSendProvider>
   );
 }
 
-function SuprSendComponents({ inbox, feed, toast }: ISuprSendComponents) {
+function SuprSendComponents({
+  inbox,
+  feed,
+  toast,
+  shadowRoot,
+}: ISuprSendComponents) {
   const suprsendClient = useSuprSendClient();
+  const [showInbox, setShowInbox] = useState(true);
+  const [showFeed, setShowFeed] = useState(true);
 
   const [inboxConfig, setInboxConfig] = useState(inbox);
   const [feedConfig, setFeedConfig] = useState(feed);
   const [toastConfig, setToastConfig] = useState(toast);
 
   useMemo(() => {
+    window.suprsend._clearSuprSendInboxInternally = () => {
+      setShowInbox(false);
+    };
+
+    window.suprsend._clearSuprSendFeedInternally = () => {
+      setShowFeed(false);
+    };
+
     window.suprsend.updateInboxConfig = (config: IInbox) => {
       setInboxConfig((prevConfig) => ({ ...prevConfig, ...(config || {}) }));
     };
@@ -179,10 +202,13 @@ function SuprSendComponents({ inbox, feed, toast }: ISuprSendComponents) {
   }, [suprsendClient]);
 
   const inboxElem = useMemo(
-    () => document.getElementById("suprsend-inbox"),
+    () => (shadowRoot || document).getElementById("suprsend-inbox"),
     []
   );
-  const feedElem = useMemo(() => document.getElementById("suprsend-feed"), []);
+  const feedElem = useMemo(
+    () => (shadowRoot || document).getElementById("suprsend-feed"),
+    []
+  );
 
   const { hideToast: hideInboxToast } = inboxConfig || {};
   const {
@@ -197,10 +223,12 @@ function SuprSendComponents({ inbox, feed, toast }: ISuprSendComponents) {
 
   return (
     <Fragment>
-      {inboxElem &&
+      {showInbox &&
+        inboxElem &&
         createPortal(
           <Inbox
             {...inboxConfig}
+            shadowRoot={shadowRoot}
             headerRightComponent={({ markAllRead }) => (
               <CustomHeaderRightComponent
                 config={inboxConfig}
@@ -213,7 +241,8 @@ function SuprSendComponents({ inbox, feed, toast }: ISuprSendComponents) {
           inboxElem
         )}
 
-      {feedElem &&
+      {showFeed &&
+        feedElem &&
         createPortal(
           <SuprSendFeedProvider
             host={host}
@@ -224,6 +253,7 @@ function SuprSendComponents({ inbox, feed, toast }: ISuprSendComponents) {
             {!hideFeed && (
               <NotificationFeed
                 {...otherFeedProps}
+                shadowRoot={shadowRoot}
                 headerRightComponent={({ markAllRead }) => (
                   <CustomHeaderRightComponent
                     config={otherFeedProps}
@@ -241,23 +271,39 @@ function SuprSendComponents({ inbox, feed, toast }: ISuprSendComponents) {
 }
 
 export function initSuprSend(config: IOptions) {
-  if (!document) return;
-  let rootElem = document.getElementById("suprsend-root");
+  if (!document && !config?.shadowRoot) return;
+  const mainRoot = config?.shadowRoot || document;
+  let rootElem = mainRoot.getElementById("suprsend-root");
 
   if (rootElem) {
     unmountComponentAtNode(rootElem);
   } else {
     rootElem = document.createElement("div");
     rootElem.id = "suprsend-root";
-    document.body.appendChild(rootElem);
+    if (mainRoot instanceof ShadowRoot) {
+      mainRoot.appendChild(rootElem);
+    } else {
+      document.body.appendChild(rootElem);
+    }
   }
 
-  render(<SuprSendRoot {...config} />, rootElem);
+  const emotionCache = createCache({
+    key: "preact-shadow",
+    container: config?.shadowRoot,
+  });
+
+  render(
+    <CacheProvider value={emotionCache}>
+      <SuprSendRoot {...config} />
+    </CacheProvider>,
+    rootElem
+  );
 }
 
-export function clearSuprSend() {
+export function clearSuprSend(config?: IClearInstance) {
   if (!document) return;
-  let rootElem = document.getElementById("suprsend-root");
+  const mainRoot = config?.shadowRoot || document;
+  let rootElem = mainRoot.getElementById("suprsend-root");
   if (rootElem) {
     unmountComponentAtNode(rootElem);
     clearSuprSendInbox();
@@ -267,18 +313,14 @@ export function clearSuprSend() {
 }
 
 export function clearSuprSendInbox() {
-  if (!document) return;
-  let rootElem = document.getElementById("suprsend-inbox");
-  if (rootElem) {
-    unmountComponentAtNode(rootElem);
+  if (window.suprsend._clearSuprSendInboxInternally) {
+    window.suprsend._clearSuprSendInboxInternally();
   }
 }
 
 export function clearSuprSendFeed() {
-  if (!document) return;
-  let rootElem = document.getElementById("suprsend-feed");
-  if (rootElem) {
-    unmountComponentAtNode(rootElem);
+  if (window.suprsend._clearSuprSendFeedInternally) {
+    window.suprsend._clearSuprSendFeedInternally();
   }
 }
 
