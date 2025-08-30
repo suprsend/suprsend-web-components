@@ -11,7 +11,7 @@ import {
   SuprSendI18nProvider,
   useTranslations,
 } from "@suprsend/react";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster, toast } from "sonner";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import {
@@ -80,7 +80,7 @@ function ToastNotification(options: IToastNotificationProps) {
     if (!feedClient) return;
 
     feedClient.emitter.on("feed.new_notification", (data) => {
-      toast.custom(
+      toast.custom(() => (
         <div>
           <ToastNotificationCard
             notificationData={data}
@@ -99,7 +99,7 @@ function ToastNotification(options: IToastNotificationProps) {
             }}
           />
         </div>
-      );
+      ));
     });
 
     return () => {
@@ -114,7 +114,7 @@ function ToastNotification(options: IToastNotificationProps) {
     <Toaster
       position={toastPosition}
       toastOptions={{ duration: duration || 3000 }}
-      gutter={8}
+      expand={true}
     />
   );
 }

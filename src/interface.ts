@@ -8,7 +8,7 @@ import type {
   SuprSendI18nProviderProps,
   ITranslations,
 } from "@suprsend/react";
-import { ToastPosition } from "react-hot-toast";
+import { ToasterProps } from "sonner";
 
 export interface IInbox
   extends IFeedOptions,
@@ -45,7 +45,7 @@ export interface IFeed
 
 export interface IToastNotificationProps
   extends Omit<ToastNotificationProps, "notificationData"> {
-  position?: ToastPosition;
+  position?: ToasterProps["position"];
   duration?: number;
 }
 
