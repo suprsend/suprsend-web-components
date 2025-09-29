@@ -745,22 +745,22 @@
   resolved "https://registry.npmjs.org/@socket.io/component-emitter/-/component-emitter-3.1.2.tgz"
   integrity sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==
 
-"@suprsend/react-core@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/@suprsend/react-core/-/react-core-1.0.1.tgz"
-  integrity sha512-TnKUWlYZ2kND1i1jKmHLasJFt0ZqJxMirm4Ikon0feuyDKDqjCCEM3xJKC0OfksIZ6X5ExofLzGWR4CVsxCCvA==
+"@suprsend/react-core@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@suprsend/react-core/-/react-core-1.0.2.tgz#126f49af84cb1addd97ce153ab4dbe056dff3adb"
+  integrity sha512-7Pmo2r4MfdlzfvGEE/DUEbW33P6DMEErxPTa8SF8yWHesxklfjh52sAM134kcTqpVtFeM5bLLobQK/Dw8F6xMg==
   dependencies:
-    "@suprsend/web-sdk" "^4.0.1"
+    "@suprsend/web-sdk" "^4.0.2"
 
-"@suprsend/react@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@suprsend/react/-/react-0.3.0.tgz#539a578a931d75c524a7ef38ec64590b03aee82d"
-  integrity sha512-4U9f9fJZink8ywZtyFfurp6PxT0L0Z+ppaVuq9qNU7s9/ecJseVX6NnSWAwv0qzrO53VSXgT5MxhVldKkc5TpA==
+"@suprsend/react@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@suprsend/react/-/react-0.3.1.tgz#f9b1fea27a17149220aadd59d2994f7fa8ae5516"
+  integrity sha512-QzrMFPbGilJ9fZwRbNvn3rq4kOyQsDFN2fTajrUP2YgDRGMo6E+NZV6Barn1FMopTbOQwIOUy5qvpP0tZZb8WQ==
   dependencies:
     "@emotion/react" "^11.13.5"
     "@emotion/styled" "^11.13.5"
     "@popperjs/core" "^2.11.8"
-    "@suprsend/react-core" "^1.0.1"
+    "@suprsend/react-core" "^1.0.2"
     lodash.throttle "^4.1.1"
     react-markdown "6.0.3"
     react-popper "^2.3.0"
@@ -768,10 +768,10 @@
     rehype-raw "5.1.0"
     remark-gfm "1.0.0"
 
-"@suprsend/web-sdk@^4.0.1":
-  version "4.0.1"
-  resolved "https://registry.npmjs.org/@suprsend/web-sdk/-/web-sdk-4.0.1.tgz"
-  integrity sha512-xWefq5pd07to8C5Sm5ZXRT+L3qxjlP4Jy6UbUXyVARZ5xnlUIQpyiVG4secOsa8XNGDo8T4db8lyLfwwF4sArg==
+"@suprsend/web-sdk@^4.0.2":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@suprsend/web-sdk/-/web-sdk-4.0.2.tgz#55e56c4971c48530cd39879c2aadb3e678f01aec"
+  integrity sha512-8Q1NEzDD3efPoKgv6txtpimTwUm/ZuRqrmfZykKarMzN6ouZJua/+nQSlFMxZdiYyEn9o8EhnQR7nrR9mobezg==
   dependencies:
     jwt-decode "3.1.2"
     mitt "^3.0.1"
