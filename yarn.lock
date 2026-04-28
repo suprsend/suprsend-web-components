@@ -745,22 +745,22 @@
   resolved "https://registry.npmjs.org/@socket.io/component-emitter/-/component-emitter-3.1.2.tgz"
   integrity sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==
 
-"@suprsend/react-core@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@suprsend/react-core/-/react-core-1.0.5.tgz#8d6ab62807bcdb3ec32c7ff217ff51753099e127"
-  integrity sha512-v7k7f11D/yiL5SdOJ+Ayu9HVvmco1POyoZOQpkrPbkiNYMo3UIIU+8mNtyxTPq/QGWOJ6wMXNUtMVo3PfPBRmw==
+"@suprsend/react-core@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@suprsend/react-core/-/react-core-1.0.7.tgz#779eaf0656cfee5b0df060f6bbb86e525890e444"
+  integrity sha512-KOy0nurX7MZB4n/DUWs6QXFguKrXeSjseJKcyK4/Evmm+hSpvsKFPXf6Rj0/LPaTDjiZjoG9DE+x/5A+hoYqAA==
   dependencies:
-    "@suprsend/web-sdk" "^4.1.0"
+    "@suprsend/web-sdk" "^4.1.2"
 
-"@suprsend/react@^0.3.5":
-  version "0.3.5"
-  resolved "https://registry.yarnpkg.com/@suprsend/react/-/react-0.3.5.tgz#2f798d6affebdd79bb1945a773d6fd42e44b0e6d"
-  integrity sha512-cEO+dk/1vFNx/P6pl9FXywx4JAcY2KC4Vai1IXyhRg4BVr2Et2YTAICejK0HYui/3zYrkmjV7E8y/oY64EVA5g==
+"@suprsend/react@^0.3.8":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@suprsend/react/-/react-0.3.8.tgz#90b8f2d57e72b8efb3d359b1f4b883ca2d7ac00c"
+  integrity sha512-3v2miXmythulRV7Wp1c6Dcc6QsHI8gJ5Sr/4w6E4glEjjSRZxqMQcWNm/8CDVAjdBdN0TCrJsG0xmIA5P/K37A==
   dependencies:
     "@emotion/react" "^11.13.5"
     "@emotion/styled" "^11.13.5"
     "@popperjs/core" "^2.11.8"
-    "@suprsend/react-core" "^1.0.5"
+    "@suprsend/react-core" "^1.0.7"
     lodash.throttle "^4.1.1"
     react-markdown "6.0.3"
     react-popper "^2.3.0"
@@ -768,10 +768,10 @@
     rehype-raw "5.1.0"
     remark-gfm "1.0.0"
 
-"@suprsend/web-sdk@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@suprsend/web-sdk/-/web-sdk-4.1.0.tgz#4f65555b2be185c3b915d4c61926bed69344d813"
-  integrity sha512-jWx+dKgWnrgNWDTQAlcjBk6W2iCicbEZGbsap9woKXLlumrKuwIG+zzD0cJs7ZsDK+/ws8Yw1LjajOrZnUdbow==
+"@suprsend/web-sdk@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@suprsend/web-sdk/-/web-sdk-4.1.2.tgz#28cfd017d72150dc2fa667ba9550df7691e99130"
+  integrity sha512-nDpUV1nxTZftHNl401B2N5jWN2BcgE/xd6zOET7h6iIhfJnUY7Ck+jy0u1vYn/Z0Fn4SfqHi+MtfGJ7huYts1g==
   dependencies:
     jwt-decode "3.1.2"
     mitt "^3.0.1"
