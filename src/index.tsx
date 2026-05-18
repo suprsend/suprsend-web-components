@@ -24,6 +24,7 @@ import {
   IUpdateSuprSendConfigOptions,
   IClearInstance,
 } from "./interface";
+import { name as SDK_NAME, version as SDK_VERSION } from "../package.json";
 
 function CustomHeaderRightComponent({
   markAllRead,
@@ -135,7 +136,14 @@ function SuprSendRoot(config: IOptions) {
   }, []);
 
   return (
-    <SuprSendProvider {...suprsendConfig}>
+    <SuprSendProvider
+      {...suprsendConfig}
+      clientUserAgent={{
+        sdk: SDK_NAME,
+        sdk_version: SDK_VERSION,
+        ...suprsendConfig?.clientUserAgent,
+      }}
+    >
       <SuprSendI18nProvider
         locale={suprsendConfig?.locale}
         translations={suprsendConfig?.translations}
