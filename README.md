@@ -4,7 +4,7 @@ This library provides drop-in components to intergrate SuprSend features like In
 
 ## Integration
 
-### Integrate using script tag
+### Using script tag
 
 This integration is used in Vanillajs, Django, Laravel, ruby etc where npm is not used.
 
@@ -34,12 +34,13 @@ This integration is used in Vanillajs, Django, Laravel, ruby etc where npm is no
 </script>
 ```
 
-### Integrate as NPM Package
+### Using npm/yarn
 
 This integration is used in framework based applications like angular, vuejs etc.
 
 ```bash
 npm install @suprsend/web-components@latest
+yarn add @suprsend/web-components@latest
 ```
 
 ```javascript
@@ -48,7 +49,7 @@ import { initSuprSend, clearSuprSend } from "@suprsend/web-components";
 // for dropin inbox with bell
 <div id="suprsend-inbox"></div>
 
-// for feed without bell as a fullscreen notification etc
+// for feed without bell in a fullscreen or side-sheet etc
 <div id="suprsend-feed"></div>
 
 const suprsendConfig = {
@@ -77,8 +78,6 @@ const suprsendConfig = {
 
 ## Removing Instance
 
-### Using script tag integration
-
 ```javascript
 // integration using script tag
 
@@ -87,9 +86,8 @@ window.suprsend.clearSuprSendInbox(); // unmount only inbox component
 window.suprsend.clearSuprSendFeed(); // unmount only feed component
 ```
 
-### Using npm package integration
-
 ```javascript
+// integration using npm package
 import {
   clearSuprSend,
   clearSuprSendInbox,
@@ -110,7 +108,7 @@ window.suprsend.updateFeedConfig(config: IFeed);
 window.suprsend.updateToastConfig(config: IToastNotificationProps);
 ```
 
-## Accessing other instance methods
+## Accessing instance methods
 
 SDK internally calls `new SuprSend()` when you call `initSuprSend()` then you can access instance using `window.suprsend.client`. This instance has methods like [preferences](https://docs.suprsend.com/docs/js-preferences), [webpush](https://docs.suprsend.com/docs/js-webpush), [event and user updates](https://docs.suprsend.com/docs/js-events-and-user-methods).
 
@@ -208,7 +206,7 @@ interface IToastNotificationProps{
 
 | Parameter                 | Description                                                                                                                                                                                                                                                                                                                    |
 | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| publicApiKey              | Mandatory. Public API key used to authenticate the SDK — `SuprSendProvider` throws an error if it is missing. You can get it from the SuprSend Dashboard.                                                                                                                                                                      |
+| publicApiKey              | Mandatory. Public API key used to authenticate the SDK — SDK throws an error if it is missing. You can get it from the SuprSend Dashboard.                                                                                                                                                                      |
 | distinctId                | Unique identifier of the user. When a value is passed, the SDK creates and authenticates the user. Passing `null` clears the authenticated user's instance data in your application, similar to a logout.                                                                                                                      |
 | userToken                 | JWT token generated on your server, required only when enhanced security mode is turned on in the SuprSend Dashboard. Enhanced security mode adds an extra layer of authentication, recommended for production environments. Read more about it [here](https://docs.suprsend.com/docs/client-authentication).                  |
 | tenantId                  | Needed only when you use multi-tenant architecture. Scopes the identified user's events, preferences, and in-app feed to that tenant. Its value must match `scope.tenant_id` in the `userToken` payload, otherwise a scoping error is raised. Changing the `tenantId` prop switches the active tenant of the identified user.  |
