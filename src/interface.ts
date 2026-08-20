@@ -68,6 +68,7 @@ export interface IUpdateSuprSendConfigOptions {
   locale?: string;
   translations?: ITranslations;
   userToken?: string;
+  tenantId?: string;
 }
 
 export interface ICustomHeaderRightComponent {
