@@ -9,23 +9,104 @@
     <div id="suprsend-inbox"></div>
     <!-- <div id="suprsend-feed"></div> -->
 
-    <script>
-      window.suprsendConfig = {
-        distinctId: "YOUR_DISTINCT_ID",
-        publicApiKey: "YOUR_PUBLIC_API_KEY",
-        userAuthenticationHandler: ({ response }) => {
-          console.log("user authentication response", response);
-        },
-      };
+    <input id="tenant-id-input" type="text" placeholder="Enter tenant id" />
+    <button id="update-tenant-btn">Update Tenant</button>
+    <button id="track-event-btn">Track Event</button>
+    <button id="get-preferences-btn">Get Preferences</button>
 
-      let scriptElem = document.createElement("script");
-      scriptElem.async = 1;
-      scriptElem.src =
-        "https://web-components.suprsend.com/v0.6.0/bundle.umd.js";
-      scriptElem.onload = () => {
-        console.log("SuprSend SDK loaded", window.suprsend);
-      };
-      document.body.appendChild(scriptElem);
+    <script>
+      // trigger track event
+      document
+        .getElementById("track-event-btn")
+        .addEventListener("click", async () => {
+          if (!window.suprsend?.client) {
+            console.log("SuprSend client not ready yet");
+            return;
+          }
+          const response = await window.suprsend.client.track("TEST");
+        });
+
+      // trigger update tenant
+      document
+        .getElementById("update-tenant-btn")
+        .addEventListener("click", async () => {
+          if (!window.suprsend?.updateSuprSendConfig) {
+            console.log("SuprSend client not ready yet");
+            return;
+          }
+          const tenantId = document
+            .getElementById("tenant-id-input")
+            .value.trim();
+          const userToken = await getUserToken(tenantId);
+          window.suprsend.updateSuprSendConfig({
+            tenantId,
+            userToken,
+          });
+        });
+
+      // trigger get preferences
+      document
+        .getElementById("get-preferences-btn")
+        .addEventListener("click", async () => {
+          if (!window.suprsend?.client) {
+            console.log("SuprSend client not ready yet");
+            return;
+          }
+          const tenantId = document
+            .getElementById("tenant-id-input")
+            .value.trim();
+          const response =
+            await window.suprsend.client.user.preferences.getPreferences(
+              tenantId ? { tenantId } : undefined,
+            );
+          console.log("getPreferences response", response);
+        });
+    </script>
+
+    <script>
+      const DISTINCT_ID = "YOUR_DISTINCT_ID";
+      const TENANT_ID = ""; // e.g. "YOUR_TENANT_ID", needed only in multi-tenant setups
+      const PUBLIC_API_KEY = "YOUR_PUBLIC_API_KEY";
+      const BACKEND_URL = "YOUR_BACKEND_URL"; // to get user token
+
+      async function getUserToken(tenantId = TENANT_ID) {
+        // endpoint on your server that returns a signed userToken (JWT)
+        let url = `${BACKEND_URL}/authentication-token/${DISTINCT_ID}/`;
+        if (tenantId) {
+          url += `?tenant_id=${tenantId}`;
+        }
+        const res = await fetch(url);
+        const data = await res.json();
+        return data.token;
+      }
+
+      async function loadSuprSend() {
+        const userToken = await getUserToken();
+
+        window.suprsendConfig = {
+          publicApiKey: PUBLIC_API_KEY,
+          distinctId: DISTINCT_ID,
+          tenantId: TENANT_ID,
+          userToken,
+          refreshUserToken: async (oldUserToken, tokenPayload) => {
+            return getUserToken(tokenPayload?.scope?.tenant_id);
+          },
+          userAuthenticationHandler: ({ response }) => {
+            console.log("user authentication response", response);
+          },
+        };
+
+        let scriptElem = document.createElement("script");
+        scriptElem.async = 1;
+        scriptElem.src =
+          "https://web-components.suprsend.com/v1.0.0/bundle.umd.js";
+        scriptElem.onload = () => {
+          console.log("SuprSend SDK loaded", window.suprsend);
+        };
+        document.body.appendChild(scriptElem);
+      }
+
+      loadSuprSend();
     </script>
   </body>
 </html>

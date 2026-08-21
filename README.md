@@ -4,7 +4,7 @@ This library provides drop-in components to intergrate SuprSend features like In
 
 ## Integration
 
-### Integrate using script tag
+### Using script tag
 
 This integration is used in Vanillajs, Django, Laravel, ruby etc where npm is not used.
 
@@ -26,7 +26,7 @@ This integration is used in Vanillajs, Django, Laravel, ruby etc where npm is no
 
   let scriptElem = document.createElement("script");
   scriptElem.async = 1;
-  scriptElem.src = "https://web-components.suprsend.com/v0.6.0/bundle.umd.js";
+  scriptElem.src = "https://web-components.suprsend.com/v1.0.0/bundle.umd.js";
   scriptElem.onload = () => {
     console.log("SuprSend SDK loaded", window.suprsend);
   };
@@ -34,12 +34,13 @@ This integration is used in Vanillajs, Django, Laravel, ruby etc where npm is no
 </script>
 ```
 
-### Integrate as NPM Package
+### Using npm/yarn
 
 This integration is used in framework based applications like angular, vuejs etc.
 
 ```bash
 npm install @suprsend/web-components@latest
+yarn add @suprsend/web-components@latest
 ```
 
 ```javascript
@@ -48,7 +49,7 @@ import { initSuprSend, clearSuprSend } from "@suprsend/web-components";
 // for dropin inbox with bell
 <div id="suprsend-inbox"></div>
 
-// for feed without bell as a fullscreen notification etc
+// for feed without bell in a fullscreen or side-sheet etc
 <div id="suprsend-feed"></div>
 
 const suprsendConfig = {
@@ -77,8 +78,6 @@ const suprsendConfig = {
 
 ## Removing Instance
 
-### Using script tag integration
-
 ```javascript
 // integration using script tag
 
@@ -87,9 +86,8 @@ window.suprsend.clearSuprSendInbox(); // unmount only inbox component
 window.suprsend.clearSuprSendFeed(); // unmount only feed component
 ```
 
-### Using npm package integration
-
 ```javascript
+// integration using npm package
 import {
   clearSuprSend,
   clearSuprSendInbox,
@@ -104,13 +102,13 @@ clearSuprSendFeed(); // unmount only feed component
 ## Updating configuration dynamically
 
 ```javascript
-window.suprsend.updateSuprSendConfig(config: IUpdateSuprSendConfigOptions); // refresh userToken, change locale, translations dymanically
+window.suprsend.updateSuprSendConfig(config: IUpdateSuprSendConfigOptions); // change tenantId, userToken, locale, translations dymanically
 window.suprsend.updateInboxConfig(config: IInbox);
 window.suprsend.updateFeedConfig(config: IFeed);
 window.suprsend.updateToastConfig(config: IToastNotificationProps);
 ```
 
-## Accessing other instance methods
+## Accessing instance methods
 
 SDK internally calls `new SuprSend()` when you call `initSuprSend()` then you can access instance using `window.suprsend.client`. This instance has methods like [preferences](https://docs.suprsend.com/docs/js-preferences), [webpush](https://docs.suprsend.com/docs/js-webpush), [event and user updates](https://docs.suprsend.com/docs/js-events-and-user-methods).
 
@@ -123,7 +121,7 @@ window.suprsend.client.webpush.registerPush();
 window.suprsend.client.user.preferences.getPreferences();
 ```
 
-## Config Options
+## Configuration Options
 
 To customise SuprSend components you can pass config object.
 
@@ -131,18 +129,20 @@ To customise SuprSend components you can pass config object.
 interface ConfigProps {
   publicApiKey: string;
   distinctId?: unknown;
-  userToken?: string; // jwt token needed when enhanced security mode is enabled
-  host?: string; // custom host url
-  initOnLoad?: boolean; // pass false if you dont want to initialise instance just after loading script
+  userToken?: string;
+  tenantId?: string;
+  host?: string;
+  initOnLoad?: boolean;
   refreshUserToken?: (
     oldUserToken: string,
     tokenPayload: Dictionary
-  ) => Promise<string>; // called after current user token expiry, call your BE api and return new user token
-  vapidKey?: string; // for webpush notifications
-  swFileName?: string; // for webpush notifications
-  userAuthenticationHandler?: ({ response: ApiResponse }) => void; // callback will be called after internally authenticating user.
-  locale: "en / fr / es / de / ar"; // pass locale to add internal translations
-  translations: ITranslations; // pass this to override existing strings or adding new language that we dont support internally.
+  ) => Promise<string>;
+  vapidKey?: string;
+  swFileName?: string;
+  shadowRoot?: ShadowRoot;
+  userAuthenticationHandler?: ({ response: ApiResponse }) => void;
+  locale: "en / fr / es / de / ar";
+  translations: ITranslations;
   inbox?: IInbox;
   feed?: IFeed;
   toast?: IToastNotificationProps;
@@ -203,3 +203,18 @@ interface IToastNotificationProps{
   theme?: ToastNotificationCardTheme; // to customise css of toast notification
 }
 ```
+
+| Parameter                 | Description                                                                                                                                                                                                                                                                                                                   |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| publicApiKey              | Mandatory. Public API key used to authenticate the SDK — SDK throws an error if it is missing. You can get it from the SuprSend Dashboard.                                                                                                                                                                                    |
+| distinctId                | Unique identifier of the user. When a value is passed, the SDK creates and authenticates the user. Passing `null` clears the authenticated user's instance data in your application, similar to a logout.                                                                                                                     |
+| userToken                 | JWT token generated on your server, required only when enhanced security mode is turned on in the SuprSend Dashboard. Enhanced security mode adds an extra layer of authentication, recommended for production environments. Read more about it [here](https://docs.suprsend.com/docs/client-authentication).                 |
+| tenantId                  | Needed only when you use multi-tenant architecture. Scopes the identified user's events, preferences, and in-app feed to that tenant. Its value must match `scope.tenant_id` in the `userToken` payload, otherwise a scoping error is raised. Changing the `tenantId` prop switches the active tenant of the identified user. |
+| refreshUserToken          | Callback invoked internally by the SDK to replace the `userToken` with a new one before it expires                                                                                                                                                                                                                            |
+| userAuthenticationHandler | Callback invoked after the SDK internally authenticates the user you pass via `distinctId`. It gives you the response of the user creation API call.                                                                                                                                                                          |
+| host                      | Customise the host URL.                                                                                                                                                                                                                                                                                                       |
+| vapidKey                  | Needed only if you are implementing WebPush notifications. You can find it in SuprSend Dashboard --> Vendors --> WebPush.                                                                                                                                                                                                     |
+| swFileName                | Needed only if you are implementing WebPush notifications and want to replace the default `serviceworker.js` file name with your own service worker file name.                                                                                                                                                                |
+| shadowRoot                | Shadow root reference to render components inside shadow dom.                                                                                                                                                                                                                                                                 |
+| locale                    | Language to be used in components' internal strings. Supported locales: `en`, `fr`, `es`, `de`, `ar`. Defaults to `en`. Currently used only by inbox.                                                                                                                                                                         |
+| translations              | Pass this to override inbuilt translation values or to add translations for a language that we don't support internally. Refer more [here](https://github.com/suprsend/suprsend-react-core/blob/main/docs/language-support.md)                                                                                                |

@@ -129,7 +129,7 @@ function SuprSendRoot(config: IOptions) {
       setSuprSendConfig((prevConfig) => ({ ...prevConfig, userToken }));
     };
     window.suprsend.updateSuprSendConfig = (
-      config: IUpdateSuprSendConfigOptions
+      config: IUpdateSuprSendConfigOptions,
     ) => {
       setSuprSendConfig((prevConfig) => ({ ...prevConfig, ...(config || {}) }));
     };
@@ -197,25 +197,16 @@ function SuprSendComponents({
       setToastConfig((prevConfig) => ({ ...prevConfig, ...(config || {}) }));
     };
 
-    // needed to have same client instance and not to create duplicate instances
-    if (!window.suprsend.client) {
-      window.suprsend.client = suprsendClient;
-    } else {
-      Object.assign(window.suprsend.client, suprsendClient);
-      Object.setPrototypeOf(
-        window.suprsend.client,
-        Object.getPrototypeOf(suprsendClient)
-      );
-    }
+    window.suprsend.client = suprsendClient;
   }, [suprsendClient]);
 
   const inboxElem = useMemo(
     () => (shadowRoot || document).getElementById("suprsend-inbox"),
-    []
+    [],
   );
   const feedElem = useMemo(
     () => (shadowRoot || document).getElementById("suprsend-feed"),
-    []
+    [],
   );
 
   const { hideToast: hideInboxToast } = inboxConfig || {};
@@ -246,7 +237,7 @@ function SuprSendComponents({
           >
             {!hideInboxToast && <ToastNotification {...toastConfig} />}
           </Inbox>,
-          inboxElem
+          inboxElem,
         )}
 
       {showFeed &&
@@ -272,7 +263,7 @@ function SuprSendComponents({
             )}
             {!hideFeedToast && <ToastNotification {...toastConfig} />}
           </SuprSendFeedProvider>,
-          feedElem
+          feedElem,
         )}
     </Fragment>
   );
@@ -304,7 +295,7 @@ export function initSuprSend(config: IOptions) {
     <CacheProvider value={emotionCache}>
       <SuprSendRoot {...config} />
     </CacheProvider>,
-    rootElem
+    rootElem,
   );
 }
 
