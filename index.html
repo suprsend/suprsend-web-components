@@ -94,6 +94,10 @@
           userAuthenticationHandler: ({ response }) => {
             console.log("user authentication response", response);
           },
+          pushTokenActionOnTenantChange: "move",
+          tenantChangeHandler: ({ tenantId, response }) => {
+            console.log("tenant change response", tenantId, response);
+          },
         };
 
         let scriptElem = document.createElement("script");
