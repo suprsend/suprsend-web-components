@@ -48,5 +48,6 @@ await window.suprsend.client.user.preferences.getPreferences({
 
 - Inbox and feed no longer default their `tenantId` to the `default` tenant. When `tenantId` is not passed in the `inbox`/`feed` config, they follow the active tenant set in the top-level config (falling back to the `default` tenant) and re-initialize automatically whenever the active tenant changes. Passing `tenantId` in the `inbox`/`feed` config pins that component to that tenant — it takes priority over the active tenant and the component ignores later tenant changes.
 - Previously fetched preferences keep the tenant they were fetched with. Call `getPreferences` again after a tenant change to load the new tenant's data.
+- The webpush subscription stays attached to the tenant it was registered under when the active tenant changes. From v1.1.0, pass `pushTokenActionOnTenantChange` (`copy` or `move`) in the top-level config to carry it over to the new tenant, and use `tenantChangeHandler` to detect a failed switch. See [Changing tenant](../README.md#changing-tenant).
 
 If you face any issue in migration process please reach out to us on our [slack community](https://join.slack.com/t/suprsendcommunity/shared_invite/zt-3932rw936-XNWY1RC8bsffh4if4ZyoXQ) or drop an email to us on [support@suprsend.com](mailto:support@suprsend.com)
