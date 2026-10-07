@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.2.0] - 2026-10-06
+
+### Added
+
+- Inbox now shows connection status: a dot on the bell and beside the panel title, and a banner in the panel when the feed is connecting, has a connection issue, failed to authenticate or the device is offline. On by default, pass `reachability: false` in `inbox` config to turn it off. Customise it with `theme.connectionDot` and `theme.connectionBanner`, see the [react customising feed docs](https://github.com/suprsend/suprsend-react-sdk/blob/main/docs/customising-feed.md) for theme options.
+- `theme.tabs` now accepts CSS for each part of the tabs, so you can set font, spacing and more: `container` (row of tabs), `tab` and `selectedTab` (each tab), `text` and `selectedText` (tab label) and `badge` (unread count badge). Existing color keys keep working, and the new CSS keys take precedence over them.
+
+### Fixed
+
+- Inbox popover closes when clicking on tab while rendered inside a `shadowRoot`.
+
+### Changed
+
+- Upgraded `@suprsend/react` dependency to `^1.4.0`. See the [react 1.4.0 changelog](https://github.com/suprsend/suprsend-react-sdk/blob/main/CHANGELOG.md#140) and [react 1.3.0 changelog](https://github.com/suprsend/suprsend-react-sdk/blob/main/CHANGELOG.md#130) for details.
+
+### Notes
+
+- Inbox looks different after this upgrade: a healthy feed shows a small green dot on the bell and beside the panel title. `reachability: false` in `inbox` config restores the previous appearance.
+
+[1.2.0]: https://github.com/suprsend/suprsend-web-components/compare/v1.1.0...v1.2.0
+
 ## [1.1.0] - 2026-09-07
 
 ### Added
