@@ -189,6 +189,7 @@ interface IFeed{
       socketHost?: string;
       apiHost?: string;
   };
+  reachability?: boolean; // defaults to true. Shows connection status dot on panel title, and a banner in panel when feed is connecting, has a connection issue, failed to authenticate or device is offline. Pass false to hide them
   pagination?: boolean;
   showUnreadCountOnTabs?: boolean; // hiding unread count in multi tab setup
   hideAvatar?: boolean;
