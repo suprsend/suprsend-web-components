@@ -26,7 +26,7 @@ This integration is used in Vanillajs, Django, Laravel, ruby etc where npm is no
 
   let scriptElem = document.createElement("script");
   scriptElem.async = 1;
-  scriptElem.src = "https://web-components.suprsend.com/v1.1.0/bundle.umd.js";
+  scriptElem.src = "https://web-components.suprsend.com/v1.2.0/bundle.umd.js";
   scriptElem.onload = () => {
     console.log("SuprSend SDK loaded", window.suprsend);
   };
@@ -165,6 +165,7 @@ interface IInbox extends {
     apiHost?: string;
   };
   pageSize?: number;
+  reachability?: boolean; // defaults to true. Shows connection status dot on bell and panel title, and a banner in panel when feed is connecting, has a connection issue, failed to authenticate or device is offline. Pass false to hide them
   pagination?: boolean;
   theme?: ITheme; // to customise css of inbox
   themeType?: ThemeType; // dark or light mode
@@ -188,6 +189,7 @@ interface IFeed{
       socketHost?: string;
       apiHost?: string;
   };
+  reachability?: boolean; // defaults to true. Shows connection status dot on panel title, and a banner in panel when feed is connecting, has a connection issue, failed to authenticate or device is offline. Pass false to hide them
   pagination?: boolean;
   showUnreadCountOnTabs?: boolean; // hiding unread count in multi tab setup
   hideAvatar?: boolean;
