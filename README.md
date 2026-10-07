@@ -165,6 +165,7 @@ interface IInbox extends {
     apiHost?: string;
   };
   pageSize?: number;
+  reachability?: boolean; // defaults to true. Shows connection status dot on bell and panel title, and a banner in panel when feed is connecting, has a connection issue, failed to authenticate or device is offline. Pass false to hide them
   pagination?: boolean;
   theme?: ITheme; // to customise css of inbox
   themeType?: ThemeType; // dark or light mode
