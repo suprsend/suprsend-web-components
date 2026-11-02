@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1] - 2026-11-02
+
+### Fixed
+
+- Toast notifications rendered inline instead of floating over the page when the widget is rendered inside a `shadowRoot`.
+
+[1.2.1]: https://github.com/suprsend/suprsend-web-components/compare/v1.2.0...v1.2.1
+
 ## [1.2.0] - 2026-10-06
 
 ### Added
