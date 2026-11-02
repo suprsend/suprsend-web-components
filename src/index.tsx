@@ -14,6 +14,7 @@ import {
 import { Toaster, toast } from "sonner";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
+import sonnerStyles from "sonner/dist/styles.css?inline";
 import {
   IOptions,
   ISuprSendComponents,
@@ -269,6 +270,17 @@ function SuprSendComponents({
   );
 }
 
+const SONNER_STYLE_ID = "suprsend-sonner-styles";
+
+// sonner injects its styles into document.head, which don't apply inside shadowRoot
+function injectSonnerStyles(shadowRoot?: ShadowRoot) {
+  if (!shadowRoot || shadowRoot.getElementById(SONNER_STYLE_ID)) return;
+  const style = document.createElement("style");
+  style.id = SONNER_STYLE_ID;
+  style.textContent = sonnerStyles;
+  shadowRoot.appendChild(style);
+}
+
 export function initSuprSend(config: IOptions) {
   if (!document && !config?.shadowRoot) return;
   const mainRoot = config?.shadowRoot || document;
@@ -285,6 +297,8 @@ export function initSuprSend(config: IOptions) {
       document.body.appendChild(rootElem);
     }
   }
+
+  injectSonnerStyles(config?.shadowRoot);
 
   const emotionCache = createCache({
     key: "preact-shadow",
